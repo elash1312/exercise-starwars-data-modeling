@@ -8,23 +8,53 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
+class User(Base):
+    __tablename__ = 'User'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    password = Column(String(80), nullable=False)
+    UserFavorites = relationship('user_favorites',)
 
-class Address(Base):
-    __tablename__ = 'address'
+class UserFavorites(Base):
+    __tablename__ = 'Favorites'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    planet_name = Column(String(250))
+    character_name = Column(String(250))
+    users_favorited = relationship(User, secondary='user_favorites', viewonly=True)
+
+    def to_dict(self):
+        return {
+            "planet": self.planet_name,
+            "character": self.character_name}
+
+class Characters(Base):
+    __tablename__ = 'Characters'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    character_name = Column(String(250))
+    character_height = Column(String(250))
+    character_hair_color = Column(String(250))
+    character_eye_color = Column(String(250))
+    User = relationship(User, secondary='user_favorites', viewonly=True)
+
+    def to_dict(self):
+        return {}
+
+class Planets(Base):
+    __tablename__ = 'Planets'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    planet_name = Column(String(250))
+    planet_rotation_period = Column(String(250))
+    planet_orbital_period = Column(String(250))
+    planet_terrain = Column(String(250))
+    User = relationship(User, secondary='user_favorites', viewonly=True)
 
     def to_dict(self):
         return {}
