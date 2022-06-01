@@ -22,8 +22,8 @@ class UserFavorites(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    planet_name = Column(String(250))
-    character_name = Column(String(250))
+    planet_name = Column(String(80))
+    character_name = Column(String(80))
     users_favorited = relationship(User, secondary='user_favorites', viewonly=True)
 
     def to_dict(self):
@@ -36,10 +36,10 @@ class Characters(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    character_name = Column(String(250))
-    character_height = Column(String(250))
-    character_hair_color = Column(String(250))
-    character_eye_color = Column(String(250))
+    character_name = Column(String(80))
+    character_height = Column(String(80))
+    character_hair_color = Column(String(80))
+    character_eye_color = Column(String(80))
     User = relationship(User, secondary='user_favorites', viewonly=True)
 
     def to_dict(self):
@@ -50,10 +50,10 @@ class Planets(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    planet_name = Column(String(250))
-    planet_rotation_period = Column(String(250))
-    planet_orbital_period = Column(String(250))
-    planet_terrain = Column(String(250))
+    planet_name = Column(String(80))
+    planet_rotation_period = Column(String(80))
+    planet_orbital_period = Column(String(80))
+    planet_terrain = Column(String(80))
     User = relationship(User, secondary='user_favorites', viewonly=True)
 
     def to_dict(self):
