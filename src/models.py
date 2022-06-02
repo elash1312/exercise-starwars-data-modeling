@@ -29,7 +29,8 @@ class UserFavorites(Base):
     def to_dict(self):
         return {
             "planet": self.planet_name,
-            "character": self.character_name}
+            "character": self.character_name
+            }
 
 class Characters(Base):
     __tablename__ = 'Characters'
@@ -43,7 +44,12 @@ class Characters(Base):
     User = relationship(User, secondary='user_favorites', viewonly=True)
 
     def to_dict(self):
-        return {}
+        return {
+            "name": self.character_name,
+            "height": self.character_height,
+            "hair color": self.character_hair_color,
+            "eye color": self.character_eye_color
+        }
 
 class Planets(Base):
     __tablename__ = 'Planets'
@@ -57,7 +63,12 @@ class Planets(Base):
     User = relationship(User, secondary='user_favorites', viewonly=True)
 
     def to_dict(self):
-        return {}
+        return {
+            "name": self.planet_name,
+            "rotation period": self.planet_rotation_period,
+            "orbital period": self.planet_orbital_period,
+            "terrain": self.planet_terrain
+        }
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
