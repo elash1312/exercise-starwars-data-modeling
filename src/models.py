@@ -24,7 +24,9 @@ class UserFavorites(Base):
     id = Column(Integer, primary_key=True)
     planet_name = Column(String(80))
     character_name = Column(String(80))
-    users_favorited = relationship(User, secondary='user_favorites', viewonly=True)
+    # users_favorited = relationship(User, secondary='user_favorites', viewonly=True)
+    planets_id = relationship(Integer, ForeignKey('planet.id'))
+    character_id = relationship(Integer, ForeignKey('character.id'))
 
     def to_dict(self):
         return {
