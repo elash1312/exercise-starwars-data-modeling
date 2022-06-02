@@ -30,8 +30,8 @@ class UserFavorites(Base):
 
     def to_dict(self):
         return {
-            "planet": self.planet_name,
-            "character": self.character_name
+            "planet": self.planets_id,
+            "character": self.character_id
             }
 
 class Characters(Base):
