@@ -44,6 +44,7 @@ class Characters(Base):
     character_hair_color = Column(String(80))
     character_eye_color = Column(String(80))
     User = relationship(User, secondary='user_favorites', viewonly=True)
+    
 
     def to_dict(self):
         return {
