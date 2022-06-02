@@ -7,6 +7,16 @@ from sqlalchemy import create_engine
 from eralchemy import render_er
 
 Base = declarative_base()
+# class Parent(Base):
+#     __tablename__ = "parent"
+#     id = Column(Integer, primary_key=True)
+#     children = relationship("Child")
+
+
+# class Child(Base):
+#     __tablename__ = "child"
+#     id = Column(Integer, primary_key=True)
+#     parent_id = Column(Integer, ForeignKey("parent.id"))
 
 class User(Base):
     __tablename__ = 'User'
@@ -15,23 +25,19 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
     password = Column(String(80), nullable=False)
-    UserFavorites = relationship('user_favorites',)
+    favorites = relationship('Favorites')
 
 class UserFavorites(Base):
     __tablename__ = 'Favorites'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    planet_name = Column(String(80))
-    character_name = Column(String(80))
-    # users_favorited = relationship(User, secondary='user_favorites', viewonly=True)
-    planets_id = relationship(Integer, ForeignKey('planet.id'))
-    character_id = relationship(Integer, ForeignKey('character.id'))
+    name = Column(String(80))
+    user_id = Column(Integer, ForeignKey("User.id"))
 
     def to_dict(self):
         return {
-            "planet": self.planets_id,
-            "character": self.character_id
+            "name": self.name,
             }
 
 class Characters(Base):
